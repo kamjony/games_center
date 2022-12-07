@@ -37,15 +37,45 @@ class GameService {
     // params['page_size'] = '2';
     // params['page'] = '1';
     try {
-      response = await _dioClient.get(
-          getUrl(url: 'games', extraParameters: params)
-      );
+      response = await _dioClient.get(getUrl(url: 'games', extraParameters: params));
     } on DioError catch (e) {
       developer.log(e.toString());
     }
     if (response.statusCode == 200) {
       if (response.data != null) {
         return GamesListModel.fromJson(response.data);
+      }
+    }
+    return null;
+  }
+
+  Future<List<Genre>?> getGenres() async {
+    late Response response;
+    try {
+      response = await _dioClient.get(getUrl(url: 'genres'));
+    } on DioError catch (e) {
+      developer.log(e.toString());
+    }
+    if (response.statusCode == 200) {
+      if (response.data != null) {
+        return List<Genre>.from(response.data['results'].map((data)=> Genre.fromJson(data)));
+      }
+    }
+    return null;
+  }
+
+  Future<List<Result>?> getGamesByCategory(int genreId) async {
+    late Response response;
+    try {
+      response = await _dioClient
+          .get(getUrl(url: 'games', extraParameters: {'genres': genreId.toString()}));
+      developer.log('getGamesByCategory: ${response.data}');
+    } on DioError catch (e) {
+      developer.log(e.toString());
+    }
+    if (response.statusCode == 200) {
+      if (response.data != null) {
+        return List<Result>.from(response.data['results'].map((data)=>Result.fromJson(data)));
       }
     }
     return null;

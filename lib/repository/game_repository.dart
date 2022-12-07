@@ -8,4 +8,8 @@ class GameRepository {
 
   Future<GamesListModel?> getGames() async => service.getGames();
 
+  Future<List<Genre>?> getGenres() async => service.getGenres();
+
+  Future<List<Result>?> getGamesByCategory(int genreId) async =>
+      service.getGamesByCategory(genreId);
 }
