@@ -1,0 +1,1 @@
+const RAWG_API_KEY =  '83a146b9ff5443098f2b0b282baf536a';
