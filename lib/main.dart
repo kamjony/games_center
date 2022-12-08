@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:games_center/repository/service/game_service.dart';
+import 'package:games_center/ui/game_details/pages/game_details_page.dart';
 import 'package:games_center/ui/home/pages/home_page.dart';
 import 'package:games_center/utils/app_bloc_observer.dart';
 
@@ -20,7 +21,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: HomePage(),
+      initialRoute: '/',
+      // home: HomePage(),
+      routes: {
+        '/': (context) => const HomePage(),
+        '/game_details': (context) => const GameDetailsPage()
+      },
     );
   }
 }

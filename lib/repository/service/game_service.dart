@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:games_center/repository/models/game_details_model.dart';
 import 'package:games_center/repository/models/games_list_model.dart';
 import 'package:games_center/utils/constants.dart';
 import 'dart:developer' as developer;
@@ -76,6 +77,23 @@ class GameService {
     if (response.statusCode == 200) {
       if (response.data != null) {
         return List<Result>.from(response.data['results'].map((data)=>Result.fromJson(data)));
+      }
+    }
+    return null;
+  }
+  
+  Future<GameDetailsModel?> getGameDetails(int gameId) async {
+    late Response response;
+    try {
+      response = await _dioClient.get(
+        getUrl(url: 'games/$gameId')
+      );
+    } on DioError catch (e) {
+      developer.log(e.toString());
+    }
+    if (response.statusCode == 200) {
+      if (response.data != null) {
+        return GameDetailsModel.fromJson(response.data);
       }
     }
     return null;
