@@ -12,6 +12,7 @@ class GameDetailsBloc extends Bloc<GameDetailsEvent, GameDetailsState> {
     required this.gameRepository,
   }) : super(const GameDetailsState()) {
     on<GetGameDetails>(_mapGetGameDetailsEventToState);
+    on<ShowMoreGameDescription>(_mapShowMoreGameDetailsEventToState);
   }
 
 
@@ -27,5 +28,14 @@ class GameDetailsBloc extends Bloc<GameDetailsEvent, GameDetailsState> {
     } catch (e) {
       emit(state.copyWith(status: GameDetailsStatus.error));
     }
+  }
+
+  void _mapShowMoreGameDetailsEventToState(ShowMoreGameDescription event, Emitter<GameDetailsState> emit) {
+    emit(
+      state.copyWith(
+        status: GameDetailsStatus.showMore,
+        showMore: event.showMore
+      )
+    );
   }
 }

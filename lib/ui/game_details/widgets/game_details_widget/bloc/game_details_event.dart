@@ -18,7 +18,7 @@ class GetGameDetails extends GameDetailsEvent {
 class ShowMoreGameDescription extends GameDetailsEvent {
   final bool showMore;
 
-  ShowMoreGameDescription({required this.showMore});
+  ShowMoreGameDescription( {required this.showMore});
 
   @override
   List<Object?> get props => [showMore];

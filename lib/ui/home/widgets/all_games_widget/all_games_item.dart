@@ -51,7 +51,7 @@ class AllGamesItem extends StatelessWidget {
             child: AllGamesItemButton(
               callback: () {
                 Navigator.pushNamed(context, '/game_details',
-                    arguments: GameData(gameId: game.id!, gameName: game.name!));
+                    arguments: GameData(gameId: game.id!, gameName: game.name!, backgroundImage: game.backgroundImage!));
               },
             ),
           )

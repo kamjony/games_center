@@ -17,8 +17,16 @@ class GameDetailsWidget extends StatelessWidget {
             ? const Center(child: CircularProgressIndicator())
             : state.status.isError
             ? const Center(child: Text('Error while loading'))
+            : state.status.isShowMore
+            ? GameDetailsSuccessWidget(gameDetails: state.gameDetails)
             : Container();
       },
     );
+    // return BlocBuilder<GameDetailsBloc, GameDetailsState> (
+    //   buildWhen: (previous, current) => current.status.isSuccess,
+    //   builder: (context, state) {
+    //     return GameDetailsSuccessWidget(gameDetails: state.gameDetails);
+    //   },
+    // );
   }
 }

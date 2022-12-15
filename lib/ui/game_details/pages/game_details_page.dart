@@ -6,6 +6,8 @@ import 'package:games_center/repository/service/game_service.dart';
 import 'package:games_center/ui/game_details/pages/game_details_layout.dart';
 import 'package:games_center/ui/game_details/widgets/game_details_widget/bloc/game_details_bloc.dart';
 import 'package:games_center/ui/game_details/widgets/game_details_widget/bloc/game_details_event.dart';
+import 'package:games_center/ui/game_details/widgets/game_trailers_widget/bloc/game_trailers_bloc.dart';
+import 'package:games_center/ui/game_details/widgets/game_trailers_widget/bloc/game_trailers_event.dart';
 
 class GameDetailsPage extends StatelessWidget {
   const GameDetailsPage({Key? key}) : super(key: key);
@@ -18,11 +20,20 @@ class GameDetailsPage extends StatelessWidget {
       backgroundColor: Colors.deepOrangeAccent,
       body: RepositoryProvider(
         create: (context) => GameRepository(service: GameService()),
-        child: BlocProvider<GameDetailsBloc>(
-          create: (context) => GameDetailsBloc(
-            gameRepository: context.read<GameRepository>(),
-          )..add(GetGameDetails(gameId: gameData.gameId, gameName: gameData.gameName)),
-          child: const GameDetailsLayout(),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<GameDetailsBloc>(
+              create: (context) => GameDetailsBloc(
+                gameRepository: context.read<GameRepository>(),
+              )..add(GetGameDetails(gameId: gameData.gameId, gameName: gameData.gameName)),
+            ),
+            BlocProvider<GameTrailersBloc>(
+              create: (context) => GameTrailersBloc(
+                gameRepository: context.read<GameRepository>(),
+              )..add(GetGameTrailersById(gameId: gameData.gameId)),
+            )
+          ],
+          child: GameDetailsLayout(backgroundImage: gameData.backgroundImage),
         ),
       ),
     );

@@ -1,18 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class GameDetailsImage extends StatelessWidget {
+class GameDetailsBackgroundImage extends StatelessWidget {
   final String backgroundImage;
   final double height;
   final double width;
-
-  const GameDetailsImage(
-      {Key? key, required this.backgroundImage, required this.height, required this.width})
-      : super(key: key);
+  const GameDetailsBackgroundImage({Key? key, required this.backgroundImage, required this.height, required this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: height,
       width: width,
       child: CachedNetworkImage(
