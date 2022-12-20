@@ -22,6 +22,7 @@ class GameDetailsLayout extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           child:  GameDetailsContainer(children: [
             GameDetailsWidget(),
+            const SizedBox(height: 10),
             GameTrailersWidget(),
           ]),
         ),
